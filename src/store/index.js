@@ -30,6 +30,7 @@ export default createStore({
             commit('auth_success', token, user)
             resolve(resp)
             console.log(token)
+            // TEST
           })
       })
     }
