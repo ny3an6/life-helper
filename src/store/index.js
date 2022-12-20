@@ -29,6 +29,7 @@ export default createStore({
             axios.defaults.headers.common.Authorization = token
             commit('auth_success', token, user)
             resolve(resp)
+            console.log(token)
           })
       })
     }

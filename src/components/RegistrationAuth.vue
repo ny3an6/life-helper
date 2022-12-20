@@ -18,7 +18,7 @@
                hint="Введите пароль"
                filled
                 type="password"/>
-<!--               :type="isPwd ? 'password' : 'text'">-->
+<!--                :type="isPwd ? 'password' : 'text'">-->
 <!--        <template v-slot:append>-->
 <!--            <q-icon-->
 <!--              :name="isPwd ? 'visibility_off' : 'visibility'"-->
@@ -60,7 +60,8 @@ export default {
       }
     }
   },
-  // eslint-disable-next-line vue/multi-word-component-names // избавиться по возможности от конфликтов с esLint 
+  // eslint-disable-next-line vue/multi-word-component-names
+  // избавиться по возможности от конфликтов с esLint
   name: 'RegistrationAuth', // переименовать
   data () {
     return {}
@@ -70,7 +71,7 @@ export default {
       this.axios.post('http://localhost:8888/authentication-service/api/registration/user/create', {
         login: this.loginInputReg,
         password: this.pwdInputReg,
-        confirmedPassword: this.pwdInputRegRepeat, // отрефачить в один обьект 
+        confirmedPassword: this.pwdInputRegRepeat, // отрефачить в один обьект
         firstName: this.inputFirstName,
         lastName: this.inputLastName,
         email: this.inputEmail
