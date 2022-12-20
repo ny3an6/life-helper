@@ -60,8 +60,8 @@ export default {
       }
     }
   },
-  // eslint-disable-next-line vue/multi-word-component-names
-  name: 'RegistrationAuth',
+  // eslint-disable-next-line vue/multi-word-component-names // избавиться по возможности от конфликтов с esLint 
+  name: 'RegistrationAuth', // переименовать
   data () {
     return {}
   },
@@ -70,7 +70,7 @@ export default {
       this.axios.post('http://localhost:8888/authentication-service/api/registration/user/create', {
         login: this.loginInputReg,
         password: this.pwdInputReg,
-        confirmedPassword: this.pwdInputRegRepeat,
+        confirmedPassword: this.pwdInputRegRepeat, // отрефачить в один обьект 
         firstName: this.inputFirstName,
         lastName: this.inputLastName,
         email: this.inputEmail
