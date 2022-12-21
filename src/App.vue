@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import Registration from '@/components/RegistrationAuth'
+import Registration from '@/components/Registration'
 import Login from '@/components/Login'
 
 export default {

@@ -42,13 +42,17 @@ export default {
   name: 'LoginAuth',
   methods: {
     authLogin () {
-      this.axios.post('http://localhost:8888/authentication-service/api/auth/login', {
+      this.$store.dispatch('auth', {
         login: this.loginInput,
         password: this.pwdInput
       })
-        .then(function (response) {
-          console.log(response)
-        })
+      // this.axios.post('http://localhost:8888/authentication-service/api/auth/login', {
+      //   login: this.loginInput,
+      //   password: this.pwdInput
+      // })
+      //   .then(function (response) {
+      //     console.log(response)
+      //   })
     }
   }
 }
