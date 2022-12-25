@@ -18,6 +18,7 @@
         </template>
       </q-input>
       <q-btn push id="loginButton" color="primary" label="Войти" @click="authLogin"/>
+      <h6> {{ this.errMsg }} </h6>
     </div>
   </form>
 </template>
@@ -38,7 +39,6 @@ export default {
       }
     }
   },
-  // eslint-disable-next-line vue/multi-word-component-names
   name: 'LoginAuth',
   methods: {
     authLogin () {
@@ -46,13 +46,14 @@ export default {
         login: this.loginInput,
         password: this.pwdInput
       })
-      // this.axios.post('http://localhost:8888/authentication-service/api/auth/login', {
-      //   login: this.loginInput,
-      //   password: this.pwdInput
-      // })
-      //   .then(function (response) {
-      //     console.log(response)
-      //   })
+        .then(() => {
+          this.$router.push('/mainpage')
+        })
+    }
+  },
+  computed: {
+    errMsg () {
+      return this.$store.getters.infoErrorMsg
     }
   }
 }

@@ -4,9 +4,11 @@ import axios from 'axios'
 
 // eslint-disable-next-line no-unused-vars
 const token = localStorage.getItem('token')
+const urlLogin = 'http://localhost:8888/authentication-service/api/auth/login'
 export default createStore({
   state: {
-    status: true,
+    status: false,
+    errorMessage: '',
     token: localStorage.getItem('token') || '',
     user: {},
     userInfo: {}
@@ -14,7 +16,8 @@ export default createStore({
   getters: {
     isLoggedIn: state => state.status,
     infoToken: state => state.token,
-    infoUser: state => state.userInfo
+    infoUser: state => state.userInfo,
+    infoErrorMsg: state => state.errorMessage
   },
   mutations: {
     auth_success (state, token, user) {
@@ -24,7 +27,13 @@ export default createStore({
       console.log('accessToken:', state.token)
     },
     auth_user_info (state, userInfo) {
+      state.status = true
       state.userInfo = userInfo
+      console.log('gagagaga')
+    },
+    auth_error (state, err) {
+      state.status = 'error'
+      state.errorMessage = err.response.data.error
     }
   },
   actions: {
@@ -45,7 +54,7 @@ export default createStore({
     auth ({ commit }, user) {
       return new Promise((resolve) => {
         axios({
-          url: 'http://localhost:8888/authentication-service/api/auth/login',
+          url: urlLogin,
           data: user,
           method: 'POST'
         })
@@ -56,6 +65,12 @@ export default createStore({
             commit('auth_success', token, user)
             resolve(resp)
             console.log(token, refreshToken)
+          })
+          .catch(err => {
+            commit('auth_error', err)
+            console.log(err.response.data.error)
+            localStorage.removeItem('token')
+            console.log(this.state.errorMessage)
           })
       })
     },

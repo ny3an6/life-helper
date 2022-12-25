@@ -1,6 +1,5 @@
 <template>
   <h1>Главная страница</h1>
-  <button @click="testInfo">test</button>
   <h4>{{ this.userInfo }}</h4>
 </template>
 
@@ -19,6 +18,9 @@ export default {
     userInfo () {
       return this.$store.getters.infoUser
     }
+  },
+  created: function () {
+    this.$store.dispatch('info', this.tokenInfo)
   }
 }
 </script>
