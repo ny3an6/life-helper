@@ -1,14 +1,17 @@
 <template>
   <h1>Главная страница</h1>
   <h4>{{ this.userInfo }}</h4>
+  <button @click="logout">Выход</button>
 </template>
 
 <script>
 export default {
   name: 'MainPage',
   methods: {
-    testInfo () {
-      this.$store.dispatch('info', this.tokenInfo)
+    logout () {
+      this.$store.dispatch('logout').then(() => {
+        this.$router.push('/')
+      })
     }
   },
   computed: {
@@ -21,6 +24,7 @@ export default {
   },
   created: function () {
     this.$store.dispatch('info', this.tokenInfo)
+    console.log(this.tokenInfo)
   }
 }
 </script>

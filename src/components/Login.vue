@@ -1,7 +1,7 @@
 <template>
+  <h1>Страница логина</h1>
   <form>
     <div id="loginForm" style="text-align: center">
-      <h1>Страница логина</h1>
       <q-input v-model= "loginInput" :rules = "[ myRule ]" label="Логин"
                filled
                hint="Введите логин"/>
@@ -17,8 +17,9 @@
           />
         </template>
       </q-input>
+      <h7> {{ this.errMsg }} </h7>
       <q-btn push id="loginButton" color="primary" label="Войти" @click="authLogin"/>
-      <h6> {{ this.errMsg }} </h6>
+      <q-btn flat id="registrationButton" color="primary" label="Создать новый аккаунт" @click="routeToRegistration"/>
     </div>
   </form>
 </template>
@@ -26,6 +27,8 @@
 <script>
 import { ref } from 'vue'
 
+// TODO: При пустых полях не отправлял запрос на сервер.
+// TODO: Сделать кнопку регистрации.
 export default {
   setup () {
     return {
@@ -42,13 +45,19 @@ export default {
   name: 'LoginAuth',
   methods: {
     authLogin () {
-      this.$store.dispatch('auth', {
-        login: this.loginInput,
-        password: this.pwdInput
-      })
-        .then(() => {
-          this.$router.push('/mainpage')
+      if (this.loginInput || this.pwdInput !== '') {
+        this.$store.dispatch('auth', {
+          login: this.loginInput,
+          password: this.pwdInput
         })
+          .then(() => {
+            this.$router.push('/mainpage')
+          })
+          .catch(err => console.log(err))
+      }
+    },
+    routeToRegistration () {
+      this.$router.push('/registration')
     }
   },
   computed: {
@@ -67,6 +76,27 @@ export default {
     margin-right: auto;
     margin-top: 25px;
   }
+  button#registrationButton {
+    margin-top: 25px;
+  }
+  h1 {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 25px;
+  }
+  h7 {
+    display: block;
+    color: #C10015;
+    margin-top: 25px;
+  }
+  form {
+    margin-left: auto;
+    margin-right: auto;
+    width: 354px;
+    height: 394px;
+    border: 1px solid black;
+  }
 </style>
 
 <style lang="sass" scoped>
@@ -76,4 +106,5 @@ export default {
   margin-left: auto
   margin-right: auto
   margin-top: 25px
+  font-size: 15px
 </style>

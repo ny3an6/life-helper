@@ -17,16 +17,15 @@
       <q-input v-model="pwdInputReg" :rules = "[ myRule ]" label="Пароль"
                hint="Введите пароль"
                filled
-                type="password"/>
-<!--                :type="isPwd ? 'password' : 'text'">-->
-<!--        <template v-slot:append>-->
-<!--            <q-icon-->
-<!--              :name="isPwd ? 'visibility_off' : 'visibility'"-->
-<!--              class="cursor-pointer"-->
-<!--              @click="isPwd = !isPwd"-->
-<!--            />-->
-<!--        </template>-->
-<!--      </q-input>-->
+               :type="isPwd ? 'password' : 'text'">
+        <template v-slot:append>
+            <q-icon
+              :name="isPwd ? 'visibility_off' : 'visibility'"
+              class="cursor-pointer"
+              @click="isPwd = !isPwd"
+            />
+        </template>
+      </q-input>
       <q-input v-model="pwdInputRegRepeat" :rules = "[ (val) => (val && val === pwdInputReg) || 'Пароль не совпадает']"
                label="Подтвердите пароль"
                hint="Введите пароль снова"
@@ -68,7 +67,7 @@ export default {
   },
   methods: {
     authReg () {
-      this.$store.commit('register', {
+      this.$store.dispatch('register', {
         login: this.loginInputReg,
         password: this.pwdInputReg,
         confirmedPassword: this.pwdInputRegRepeat, // отрефачить в один обьект
@@ -76,6 +75,9 @@ export default {
         lastName: this.inputLastName,
         email: this.inputEmail
       })
+        .then(() => {
+          this.$router.push('/login')
+        })
       // this.axios.post('http://localhost:8888/authentication-service/api/registration/user/create', {
       //   login: this.loginInputReg,
       //   password: this.pwdInputReg,
